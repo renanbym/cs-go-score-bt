@@ -10,6 +10,13 @@ server.connection({
 
 server.route({
     method: 'GET',
+    path:'/',
+    handler: function (request, reply) {
+        return reply('hello world');
+    }
+});
+server.route({
+    method: 'GET',
     path:'/hello',
     handler: function (request, reply) {
         return reply('hello world');
