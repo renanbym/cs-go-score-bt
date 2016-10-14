@@ -7,7 +7,9 @@ var cheerio = require('cheerio');
 var fs = require('fs');
 var moment = require('moment');
 
-var getMatchs = function getMatchs(data, callback) {
+var hltv = {};
+
+hltv.getMatchs = function (data, callback) {
     var $ = cheerio.load(data);
     var match = [];
 
@@ -56,8 +58,10 @@ var getMatchs = function getMatchs(data, callback) {
     callback(null, match);
 };
 
-request('http://www.hltv.org', function (err, response, body) {
-    getMatchs(body, function (err, match) {
-        console.log(match);
+hltv.requestMatch = function (callback) {
+    request('http://www.hltv.org', function (err, response, body) {
+        hltv.getMatchs(body, callback);
     });
-});
+};
+
+module.exports = hltv;

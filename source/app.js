@@ -3,7 +3,9 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const moment = require('moment');
 
-const getMatchs = ( data, callback ) =>{
+const hltv = {}
+
+hltv.getMatchs = ( data, callback ) =>{
     let $ = cheerio.load(data);
     let match = [];
 
@@ -55,8 +57,10 @@ const getMatchs = ( data, callback ) =>{
 
 }
 
-request('http://www.hltv.org', (err, response, body) => {
-    getMatchs( body, (err, match ) => {
-        console.log(match);
-    } );
-})
+hltv.requestMatch = ( callback ) =>{
+    request('http://www.hltv.org', (err, response, body) => {
+        hltv.getMatchs( body, callback );
+    })
+}
+
+module.exports = hltv
