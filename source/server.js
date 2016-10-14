@@ -4,7 +4,7 @@ const server = new Hapi.Server();
 const hltv = require('./app.js');
 
 server.connection({
-    host: 'cs-go-bot.herokuapp.com',
+    host:  '0.0.0.0',
     port: ( process.env.PORT || 3000)
 });
 
