@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "build": "npm install && bower install",
+    "dev": "babel source/ -d build/ -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,6 +18,9 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "cheerio": "^0.22.0"
+    "cheerio": "^0.22.0",
+    "hltv-match": "^1.0.0",
+    "html-to-json": "^0.6.0",
+    "moment": "^2.15.1"
   }
 }
