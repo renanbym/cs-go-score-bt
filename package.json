@@ -1,10 +1,10 @@
 {
   "name": "cs-go-score-bot",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "build/server.js",
   "engines": {
-    "node": "5.9.1"
+    "node": "4.4.7"
   },
   "private": true,
   "scripts": {
