@@ -2,13 +2,16 @@
   "name": "cs-go-score-bot",
   "version": "0.0.1",
   "description": "",
-  "main": "app.js",
+  "main": "build/server.js",
+  "engines": {
+    "node": "5.9.1"
+  },
   "private": true,
   "scripts": {
     "build": "npm install && bower install",
     "dev": "babel source/ -d build/ -w",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node buld/server.js"
+    "start": "node build/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,5 +26,6 @@
     "cheerio": "^0.22.0",
     "hapi": "^15.1.1",
     "moment": "^2.15.1"
-  }
+},
+  "license": "MIT"
 }
