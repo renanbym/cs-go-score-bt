@@ -2,11 +2,10 @@
 
 var Hapi = require('hapi');
 var server = new Hapi.Server();
-
 var hltv = require('./app.js');
 
 server.connection({
-    host: 'localhost',
+    host: '0.0.0.0',
     port: process.env.PORT || 3000
 });
 
@@ -14,7 +13,10 @@ server.route({
     method: 'GET',
     path: '/',
     handler: function handler(request, reply) {
-        return reply('hello world');
+        hltv.requestMatch(function (err, matchs) {
+            if (err) return reply(err).code(406);
+            return reply(matchs).code(203);
+        });
     }
 });
 server.route({
@@ -30,7 +32,7 @@ server.route({
     handler: function handler(request, reply) {
         hltv.requestMatch(function (err, matchs) {
             if (err) return reply(err).code(406);
-            return reply(matchs);
+            return reply(matchs).code(203);
         });
     }
 });
