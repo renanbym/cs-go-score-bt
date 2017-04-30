@@ -2,7 +2,9 @@
 
 var Hapi = require('hapi');
 var server = new Hapi.Server();
-var hltv = require('./app.js');
+
+var HLTV = require('hltv');
+var hltv = new HLTV();
 
 server.connection({
     host: '0.0.0.0',
@@ -11,28 +13,26 @@ server.connection({
 
 server.route({
     method: 'GET',
-    path: '/',
+    path: '/hltv/matches',
     handler: function handler(request, reply) {
-        hltv.requestMatch(function (err, matchs) {
-            if (err) return reply(err).code(406);
-            return reply(matchs).code(203);
+
+        hltv.getMatches().then(function (matchs) {
+            return reply(matchs).code(200);
+        }).catch(function (err) {
+            console.log(err);
         });
     }
 });
+
 server.route({
     method: 'GET',
-    path: '/hello',
+    path: '/hltv/results',
     handler: function handler(request, reply) {
-        return reply('hello world');
-    }
-});
-server.route({
-    method: 'GET',
-    path: '/hltv',
-    handler: function handler(request, reply) {
-        hltv.requestMatch(function (err, matchs) {
-            if (err) return reply(err).code(406);
-            return reply(matchs).code(203);
+
+        hltv.getLatestResults().then(function (matchs) {
+            return reply(matchs).code(200);
+        }).catch(function (err) {
+            console.log(err);
         });
     }
 });

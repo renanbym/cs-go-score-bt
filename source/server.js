@@ -1,37 +1,44 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-const hltv = require('./app.js');
+
+const HLTV = require('hltv');
+const hltv = new HLTV();
 
 server.connection({
     host:  '0.0.0.0',
     port: (process.env.PORT || 3000)
 });
 
+
 server.route({
     method: 'GET',
-    path:'/',
+    path:'/hltv/matches',
     handler: function (request, reply) {
-      hltv.requestMatch( (err, matchs) => {
-          if (err) return reply(err).code(406);
-          return reply(matchs).code(203);
+
+      hltv.getMatches()
+      .then( (matchs) => {
+          return reply(matchs).code(200);
       })
+      .catch( (err) => {
+        console.log(err);
+      })
+
     }
 });
+
 server.route({
     method: 'GET',
-    path:'/hello',
+    path:'/hltv/results',
     handler: function (request, reply) {
-        return reply('hello world');
-    }
-});
-server.route({
-    method: 'GET',
-    path:'/hltv',
-    handler: function (request, reply) {
-        hltv.requestMatch( (err, matchs) => {
-            if (err) return reply(err).code(406);
-            return reply(matchs).code(203);
-        })
+
+      hltv.getLatestResults()
+      .then( (matchs) => {
+          return reply(matchs).code(200);
+      })
+      .catch( (err) => {
+        console.log(err);
+      })
+
     }
 });
 
