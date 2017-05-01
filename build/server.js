@@ -21,7 +21,21 @@ server.route({
     method: 'GET',
     path: '/hltv/matches',
     handler: function handler(request, reply) {
-        console.log();
+        console.log('das');
+
+        hltv.getMatches().then(function (matchs) {
+            return reply(matchs).code(200);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    }
+});
+
+server.route({
+    method: 'POST',
+    path: '/hltv/matches',
+    handler: function handler(request, reply) {
+        console.log('das');
 
         hltv.getMatches().then(function (matchs) {
             return reply(matchs).code(200);
